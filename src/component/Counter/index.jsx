@@ -4,11 +4,7 @@ import {useState} from "react";
 const Counter = ({number}) => {
     const [counter, setCounter] = useState(0)
     const [intervalId, setIntervalId] = useState(0)
-    const [list, setList] = useState([
-        {
-            name: 'Paul'
-        }
-    ])
+    const double = counter * 2
 
     const startCounter = () => {
         const id = setInterval(() => {
@@ -17,31 +13,21 @@ const Counter = ({number}) => {
             })
         }, 1000)
         setIntervalId(id)
-        const copy = [...list]
-        copy.push({name: 'jacques'})
-        setList(copy);
-
-        // equivalent mais plus cour à écrire
-        // setList([
-        //     ...list,
-        //     {
-        //         name: 'jacque'
-        //     }
-        // ])
-
-        console.log(copy)
     }
 
     const endCounter = () => {
-        if (intervalId !== 0 ) clearInterval(intervalId);
+        if (intervalId !== 0 ) {
+            clearInterval(intervalId)
+            setIntervalId(0)
+        }
     }
 
     return (
         <>
             <button onClick={startCounter}>start +{number}</button>
-            <button onClick={endCounter}>end</button>
+            <button onClick={endCounter} disabled={intervalId === 0}>end</button>
             {
-                counter > 0 && <div>{counter}</div>
+                counter > 0 && <div>{counter} /  {double}</div>
             }
         </>
     )

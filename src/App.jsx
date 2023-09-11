@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import {useState} from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Counter from "./component/Counter";
+import Hello from "./component/Hello/index.jsx";
 
 function App() {
     const [msg, setMsg] = useState(0)
@@ -21,18 +22,13 @@ function App() {
         if (intervalId !== 0) clearInterval(intervalId);
     }
 
-  return (
-    <>
-      <section>Ma section</section>
-      <button onClick={startCounter}>start</button>
-        <button onClick={endCounter} disabled={intervalId === 0}>End</button>
-        {
-            msg > 0 && <div>{msg}</div>
-        }
-        <Counter number={1} />
-        <Counter number={5} />
-    </>
-  )
+    return (
+        <>
+            <Hello name={'Paul-Roselle'} />
+            <section>Ma section</section>
+            <Counter number={1}/>
+        </>
+    )
 }
 
 export default App
