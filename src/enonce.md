@@ -2,7 +2,7 @@
 
 ## partie 1
 
-Reutiliser le component counter et améliorer le : 
+Reutiliser les components Buttons & List et améliorer les : 
 
-- Ajouter un bouton reset qui permet de remettre le compteur à 0
-- Si le compteur atteint une valeur maximal de 20 il s'arrête automatiquement
+- Lors d'un click sur un bouton ou sur un element de la liste incrémenter un compteur de 1 pout compatbilisé le nombre de click total.
+- A la suite des liste afficher 2 chaines de caractére (faite un nouveau component) qui affichera le nombre d'élèments dans chaque liste.
