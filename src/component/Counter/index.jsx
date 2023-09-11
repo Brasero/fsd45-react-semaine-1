@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 
 
 const Counter = ({number}) => {
@@ -15,12 +15,27 @@ const Counter = ({number}) => {
         setIntervalId(id)
     }
 
+    const resetCounter = () => {
+        stopCounter()
+        setCounter(0)
+    }
+
     const endCounter = () => {
         if (intervalId !== 0 ) {
-            clearInterval(intervalId)
-            setIntervalId(0)
+            stopCounter()
         }
     }
+
+    const stopCounter = () => {
+        clearInterval(intervalId)
+        setIntervalId(0)
+    }
+
+    useEffect(() => {
+        if(counter >= 20) {
+            stopCounter()
+        }
+    }, [counter])
 
     return (
         <>
@@ -29,6 +44,7 @@ const Counter = ({number}) => {
             {
                 counter > 0 && <div>{counter} /  {double}</div>
             }
+            <button onClick={resetCounter}>Reset</button>
         </>
     )
 }
