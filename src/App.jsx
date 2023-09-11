@@ -1,33 +1,31 @@
-import {useState} from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import Counter from "./component/Counter";
-import Hello from "./component/Hello/index.jsx";
 
 function App() {
-    const [msg, setMsg] = useState(0)
-    const [intervalId, setIntervalId] = useState(0)
 
-    const startCounter = () => {
-        const id = setInterval(() => {
-            setMsg((prevState) => {
-                return prevState + 1
-            })
-        }, 1000)
-        setIntervalId(id)
-    }
+    const list = [
+        'banane',
+        'tomates',
+        'courgettes'
+    ]
 
-    const endCounter = () => {
-        if (intervalId !== 0) clearInterval(intervalId);
-    }
+    const MESSAGES = [
+        { message : "React JS" },
+        { message : "React Native" },
+        { message : "Angular" },
+        { message : "Symfony" },
+        { message : "MongoDB" },
+    ]
 
     return (
-        <>
-            <Hello name={'Paul-Roselle'} />
-            <section>Ma section</section>
-            <Counter number={1}/>
-        </>
+        <ul>
+            {
+                list.map((element, index) => {
+                    return (
+                        <li key={index}>{element}</li>
+                    )
+                })
+            }
+        </ul>
     )
 }
 

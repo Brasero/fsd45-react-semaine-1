@@ -2,8 +2,17 @@
 
 ## partie 1
  
-Créer un component Counter qui devra incrémenter un compteur de la valeur passée en props à chaque seconde et affiché le double de sa valeur
+Créer deux component : 
+- `Messages` qui sera charger de rendre autant de component Message qu'il y d'élément dans le tableau MESSAGES
+- `Message` qui sera charger d'afficher le message contenu dans l'objet qu'il recevra en props
 
-## partie 2 
+````js
 
-Créer un component Hello qui prendra un props `name` et qui devra affiché "Bonjour, `name`"
+const MESSAGES = [
+    { message : "React JS" },
+    { message : "React Native" },
+    { message : "Angular" },
+    { message : "Symfony" },
+    { message : "MongoDB" },
+];
+````
