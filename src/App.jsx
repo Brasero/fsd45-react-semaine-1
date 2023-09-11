@@ -1,12 +1,7 @@
 import './App.css'
+import Messages from "./component/Messages/index.jsx";
 
 function App() {
-
-    const list = [
-        'banane',
-        'tomates',
-        'courgettes'
-    ]
 
     const MESSAGES = [
         { message : "React JS" },
@@ -17,15 +12,9 @@ function App() {
     ]
 
     return (
-        <ul>
-            {
-                list.map((element, index) => {
-                    return (
-                        <li key={index}>{element}</li>
-                    )
-                })
-            }
-        </ul>
+        <>
+            <Messages messages={MESSAGES} />
+        </>
     )
 }
 
