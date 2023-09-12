@@ -1,15 +1,12 @@
 import './App.css'
 import arrayReducer, {initialState} from "./Reducer/index.js";
-import {useReducer, useState} from "react";
+import {useReducer} from "react";
 
 function App() {
 
     const regex = /^[a-zA-Z]{1}[a-zA-Z éè]*$/
 
     const [state, dispatch] = useReducer(arrayReducer, initialState)
-
-    const [inputValue, setInputValue] = useState('')
-    const [inputError, setInputError] = useState('')
 
     const red = {
         background: 'red'
@@ -36,6 +33,31 @@ function App() {
         dispatch(chanValueAction('inputValue', value))
     }
 
+
+    const suppressOne = (name) => {
+        return {
+            type: 'suppressOne',
+            payload: name
+        }
+    }
+
+    const addItem = (title) => {
+        return {
+            type: 'addItem',
+            payload: {
+                title,
+                done: false
+            }
+        }
+    }
+
+    const toggleTaskAction = (task) => {
+        return {
+            type: 'toggleTask',
+            payload: task
+        }
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
         const test = regex.test(state.inputValue)
@@ -46,34 +68,27 @@ function App() {
         }
     }
 
-    const suppressOne = (name) => {
-        return {
-            type: 'suppressOne',
-            payload: name
-        }
-    }
-
-    const addItem = (payload) => {
-        return {
-            type: 'addItem',
-            payload
-        }
+    const toggleTask = (task) => {
+        dispatch(toggleTaskAction(task))
     }
 
     return (
         <>
             <ul>
                 {
-                    state.array.map((elem, index) => {
-                        return <li key={`${elem}-${index}`}>
-                            {elem}
-                            <button onClick={() => dispatch(suppressOne(elem))} style={red}>X</button>
-                        </li>
-                    })
+                    state.tasks.length > 0 ? (
+                        state.tasks.map((elem, index) => {
+                            return <li key={`${elem.title}-${index}`}>
+                                <input type={'checkbox'} onChange={() => toggleTask(elem)} checked={elem.done} />
+                                {elem.title}
+                                <button onClick={() => dispatch(suppressOne(elem))} style={red}>X</button>
+                            </li>
+                        })
+                    ) : (
+                        <div>Aucune tâche</div>
+                    )
                 }
             </ul>
-            <button onClick={() => dispatch({type: 'reverse'})}>Reverse</button>
-            <button onClick={() => dispatch({type: 'suppressLast'})}>Suppress</button>
             <form onSubmit={handleSubmit}>
                 <input type={'text'} onChange={handleChange} value={state.inputValue} />
                 <input type={'submit'} value={'enregistrer'} />

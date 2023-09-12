@@ -1,75 +1,48 @@
-const initialArray = [
-    "Premier élément",
-    "Deuxième élément",
-    "Troisième élément",
-    "Quatrième élément",
-    "Cinquième élément",
-    "Sixième élément",
-    "Septième élément",
-    "Huitième élément",
-    "Neuvième élément",
-    "Dixième élément"
-];
-
 export const initialState = {
-    array: initialArray,
+    tasks: [],
     inputValue: '',
     inputError: ''
 }
 
 const arrayReducer = (state, action) => {
     switch(action.type) {
-        case 'reverse':
-            return {
-                ...state,
-                array: [...state.array].reverse()
-            }
-
-        case 'suppressLast':
-            return {
-                ...state,
-                array: state.array.slice(0, -1)
-            }
 
         case 'suppressOne':
             return {
                 ...state,
-                array: state.array.filter((item) => item !== action.payload)
+                tasks: state.tasks.filter((item) => item.title !== action.payload.title)
             }
 
         case 'addItem':
-            return state.array.includes(action.payload) ?
-                {
-                    ...state,
-                    inputError: `La valeur ${action.payload} existe déjà dans le tableau`,
-                    inputValue: ''
-                } : {
-                    ...state,
-                    array: [
-                        ...state.array,
-                        action.payload
-                    ],
-                    inputError: '',
-                    inputValue: ''
-                }
-
-
-        case 'changeInputValue':
             return {
                 ...state,
-                inputValue: action.payload
-            }
-
-        case 'setInputError':
-            return {
-                ...state,
-                inputError: action.payload
+                tasks: [
+                    ...state.tasks,
+                    action.payload
+                ],
+                inputValue: '',
+                inputError: ''
             }
 
         case 'changeValue':
             return {
                 ...state,
                 [action.payload.name]: action.payload.value
+            }
+
+        case 'toggleTask':
+            const newTasks = state.tasks.map((elem) =>  {
+                if(elem.title === action.payload.title) {
+                    return {
+                        ...elem,
+                        done: !elem.done
+                    }
+                }
+                return elem
+            })
+            return {
+                ...state,
+                tasks: newTasks
             }
 
         default:
