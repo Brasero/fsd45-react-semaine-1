@@ -1,10 +1,12 @@
 import './App.css'
-import {useEffect, useReducer, useState} from "react";
+import {useEffect, useReducer} from "react";
 import List from "./component/List/index.jsx";
 import Buttons from "./component/Buttons/index.jsx";
 import ArraySize from "./component/ArraySize/index.jsx";
-import {createPortal} from "react-dom";
 
+// un reducer est une fonction qui prend un state et une action en entrée et nous retourne un nouveau state modifier comme précisé par l'action,
+// l'argument action attendu par le reducer est un objet {} qui contiendra obligatoirement une propriété type et éventuellement un payload si necessaire
+// voir ci-dessous
 /*
 const action = {
     type: 'addItem',
@@ -14,6 +16,9 @@ const action = {
 }
 */
 const reducer = (state, action) => {
+    // dans un reducer, on effectuera un switch & case sur le type d'action reçu en paramètre, en fonction de la valeur de ce dernier
+    // le reducer pourra effectuer différente modification sur une copie du state avant de nous en retourner un nouveau,
+    // le cas échéant le reducer nous retournera le même state (cas default)
     switch (action.type) {
         case 'toggleItem':
             if(state.list.includes(action.payload.name)) {
