@@ -1,48 +1,80 @@
+let productId = 1;
+
+const initialProduct = {
+    name: '',
+    description: '',
+    prix: '',
+    qte: 1
+}
 export const initialState = {
-    tasks: [],
-    inputValue: '',
-    inputError: ''
+    products: [],
+    product: initialProduct
 }
 
-const arrayReducer = (state, action) => {
+const productReducer = (state, action) => {
     switch(action.type) {
-
-        case 'suppressOne':
-            return {
-                ...state,
-                tasks: state.tasks.filter((item) => item.title !== action.payload.title)
-            }
-
-        case 'addItem':
-            return {
-                ...state,
-                tasks: [
-                    ...state.tasks,
-                    action.payload
-                ],
-                inputValue: '',
-                inputError: ''
-            }
-
         case 'changeValue':
             return {
                 ...state,
-                [action.payload.name]: action.payload.value
+                product: {
+                    ...state.product,
+                    [action.payload.name]: action.payload.value
+                }
             }
 
-        case 'toggleTask':
-            const newTasks = state.tasks.map((elem) =>  {
-                if(elem.title === action.payload.title) {
-                    return {
-                        ...elem,
-                        done: !elem.done
-                    }
-                }
-                return elem
-            })
+        case 'addProduct':
             return {
                 ...state,
-                tasks: newTasks
+                products: [
+                    ...state.products,
+                    {
+                        id: productId++,
+                        ...action.payload
+                    }
+                ],
+                product: initialProduct
+            }
+
+        case 'suppressProduct':
+            return {
+                ...state,
+                products: state.products.filter((product) => product.id !== action.payload)
+            }
+
+        case 'increment':
+            return {
+                ...state,
+                products: state.products.map((product) => {
+                    if(product.id === action.payload) {
+                        return {
+                            ...product,
+                            qte: product.qte + 1
+                        }
+                    }
+                    return product
+                })
+            }
+
+        case 'decrement':
+            const index = state.products.findIndex((product) => product.id === action.payload)
+            if(state.products[index].qte === 1) {
+                return {
+                    ...state,
+                    products: state.products.filter((product) => product.id !== action.payload)
+                }
+            } else {
+                return {
+                    ...state,
+                    products: state.products.map((product) => {
+                        if(product.id === action.payload) {
+                            return {
+                                ...product,
+                                qte: product.qte - 1
+                            }
+                        }
+                        return product
+                    })
+                }
             }
 
         default:
@@ -50,4 +82,4 @@ const arrayReducer = (state, action) => {
     }
 }
 
-export default arrayReducer
+export default productReducer
