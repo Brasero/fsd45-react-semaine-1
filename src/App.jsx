@@ -1,107 +1,86 @@
 import './App.css'
-import {useEffect, useReducer} from "react";
-import List from "./component/List/index.jsx";
-import Buttons from "./component/Buttons/index.jsx";
-import ArraySize from "./component/ArraySize/index.jsx";
-
-// un reducer est une fonction qui prend un state et une action en entrée et nous retourne un nouveau state modifier comme précisé par l'action,
-// l'argument action attendu par le reducer est un objet {} qui contiendra obligatoirement une propriété type et éventuellement un payload si necessaire
-// voir ci-dessous
-/*
-const action = {
-    type: 'addItem',
-    payload: {
-        name: 'Luc'
-    }
-}
-*/
-const reducer = (state, action) => {
-    // dans un reducer, on effectuera un switch & case sur le type d'action reçu en paramètre, en fonction de la valeur de ce dernier
-    // le reducer pourra effectuer différente modification sur une copie du state avant de nous en retourner un nouveau,
-    // le cas échéant le reducer nous retournera le même state (cas default)
-    switch (action.type) {
-        case 'toggleItem':
-            if(state.list.includes(action.payload.name)) {
-                const button = [
-                    ...state.button,
-                    action.payload.name
-                ]
-                const filteredList = state.list.filter((item) =>  item !== action.payload.name)
-                return {
-                    ...state,
-                    button,
-                    list: filteredList
-                }
-            } else {
-                const list = [
-                    ...state.list,
-                    action.payload.name
-                ]
-                const filteredButton =  state.button.filter((item) => item !== action.payload.name)
-
-                return {
-                    ...state,
-                    list,
-                    button: filteredButton
-                }
-            }
-
-
-        case 'incrementCounter':
-            return {
-                ...state,
-                counter: state.counter + 1
-            }
-
-        default:
-            return state;
-    }
-}
+import arrayReducer, {initialState} from "./Reducer/index.js";
+import {useReducer, useState} from "react";
 
 function App() {
 
-    const initialState = {
-        list: [
-            'Bananes',
-            'Fraises'
-        ],
-        button: [
-            'Lait',
-            'Eau',
-            'Fromage'
-        ],
-        counter: -1
+    const regex = /^[a-zA-Z]{1}[a-zA-Z éè]*$/
+
+    const [state, dispatch] = useReducer(arrayReducer, initialState)
+
+    const [inputValue, setInputValue] = useState('')
+    const [inputError, setInputError] = useState('')
+
+    const red = {
+        background: 'red'
     }
 
-    const [state, dispatch] = useReducer(reducer, initialState)
-
-
-    const array = Array(9).fill('')
-
-    const handleClick = (name) => {
-        dispatch({
-            type: 'toggleItem',
+    const chanValueAction = (name, value) => {
+        return {
+            type: 'changeValue',
             payload: {
-                name
+                name,
+                value
             }
-        })
+        }
     }
 
-    useEffect(() => {
-        dispatch({
-            type: 'incrementCounter'
-        })
-    }, [state.button, state.list])
+    const handleChange = (e) => {
+        const {value} = e.target
+        const test = regex.test(value)
+        if(!test) {
+            dispatch(chanValueAction('inputError', 'Le champ contient des caractères non autorisée.'))
+        } else {
+            dispatch(chanValueAction('inpuError', ''))
+        }
+        dispatch(chanValueAction('inputValue', value))
+    }
 
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const test = regex.test(state.inputValue)
+        if(!test) {
+            dispatch(chanValueAction('inputError', 'Le champ contient des caractères non autorisée.'))
+        } else {
+            dispatch(addItem(state.inputValue))
+        }
+    }
+
+    const suppressOne = (name) => {
+        return {
+            type: 'suppressOne',
+            payload: name
+        }
+    }
+
+    const addItem = (payload) => {
+        return {
+            type: 'addItem',
+            payload
+        }
+    }
 
     return (
         <>
-            <div>Vous avez cliqué {state.counter} fois.</div>
-            <Buttons items={state.button} handleClick={handleClick} />
-            <List items={state.list} handleClick={handleClick} />
-            <ArraySize list={state.list} name='de liste de courses' />
-            <ArraySize list={state.button} name='de proposition' />
-            <ArraySize list={array} name={'de test'} />
+            <ul>
+                {
+                    state.array.map((elem, index) => {
+                        return <li key={`${elem}-${index}`}>
+                            {elem}
+                            <button onClick={() => dispatch(suppressOne(elem))} style={red}>X</button>
+                        </li>
+                    })
+                }
+            </ul>
+            <button onClick={() => dispatch({type: 'reverse'})}>Reverse</button>
+            <button onClick={() => dispatch({type: 'suppressLast'})}>Suppress</button>
+            <form onSubmit={handleSubmit}>
+                <input type={'text'} onChange={handleChange} value={state.inputValue} />
+                <input type={'submit'} value={'enregistrer'} />
+                {
+                    state.inputError.length > 0 && <span style={{color: 'red'}}>{state.inputError}</span>
+                }
+            </form>
         </>
     )
 }
