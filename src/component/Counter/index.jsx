@@ -1,6 +1,9 @@
 import {useState} from "react";
 
 
+// Counter est un component qui s'attend à recevoir des props ({number})
+// Lors de l'utilisation de Counter, il faudra lui passer ce props sous la forme suivante :
+// <Counter number={8} />
 const Counter = ({number}) => {
     const [counter, setCounter] = useState(0)
     const [intervalId, setIntervalId] = useState(0)
