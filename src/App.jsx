@@ -19,6 +19,9 @@ function App() {
     return (
         <ul>
             {
+                // Lorsque l'on souhaite boucler sur un tableau afin d'afficher un élément JSX pour chaque élément du tableau, on
+                // utilisera exclusivement des fonctions de tableau et plus généralement la fonction map comme ci-dessous
+                // Tout élément retourné au travers d'un map devra posséder un props "key" uniquement afin que React puisse l'identifier
                 list.map((element, index) => {
                     return (
                         <li key={index}>{element}</li>
