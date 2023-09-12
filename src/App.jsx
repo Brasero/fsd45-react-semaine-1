@@ -1,12 +1,61 @@
 import './App.css'
-import {useEffect, useState} from "react";
+import {useEffect, useReducer, useState} from "react";
 import List from "./component/List/index.jsx";
 import Buttons from "./component/Buttons/index.jsx";
 import ArraySize from "./component/ArraySize/index.jsx";
+import {createPortal} from "react-dom";
+
+/*
+const action = {
+    type: 'addItem',
+    payload: {
+        name: 'Luc'
+    }
+}
+*/
+const reducer = (state, action) => {
+    switch (action.type) {
+        case 'toggleItem':
+            if(state.list.includes(action.payload.name)) {
+                const button = [
+                    ...state.button,
+                    action.payload.name
+                ]
+                const filteredList = state.list.filter((item) =>  item !== action.payload.name)
+                return {
+                    ...state,
+                    button,
+                    list: filteredList
+                }
+            } else {
+                const list = [
+                    ...state.list,
+                    action.payload.name
+                ]
+                const filteredButton =  state.button.filter((item) => item !== action.payload.name)
+
+                return {
+                    ...state,
+                    list,
+                    button: filteredButton
+                }
+            }
+
+
+        case 'incrementCounter':
+            return {
+                ...state,
+                counter: state.counter + 1
+            }
+
+        default:
+            return state;
+    }
+}
 
 function App() {
 
-    const [state, setState] = useState({
+    const initialState = {
         list: [
             'Bananes',
             'Fraises'
@@ -17,39 +66,25 @@ function App() {
             'Fromage'
         ],
         counter: -1
-    })
+    }
+
+    const [state, dispatch] = useReducer(reducer, initialState)
 
 
     const array = Array(9).fill('')
 
     const handleClick = (name) => {
-        if(state.list.includes(name)) {
-            const listCopy = state.list.filter((elem) => elem !== name)
-            setState({
-                ...state,
-                list: listCopy,
-                button: [
-                    ...state.button,
-                    name
-                ]
-            })
-        } else {
-            const buttonCopy = state.button.filter((elem) => elem !== name)
-            setState({
-                ...state,
-                button: buttonCopy,
-                list: [
-                    ...state.list,
-                    name
-                ]
-            })
-        }
+        dispatch({
+            type: 'toggleItem',
+            payload: {
+                name
+            }
+        })
     }
 
     useEffect(() => {
-        setState({
-            ...state,
-            counter: state.counter + 1
+        dispatch({
+            type: 'incrementCounter'
         })
     }, [state.button, state.list])
 
