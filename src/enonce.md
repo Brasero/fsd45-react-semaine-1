@@ -42,3 +42,8 @@ Le déroulé de l'utilisation est le suivant :
 2 L'utilisateur clique sur un opérateur (`+`, `-`, `x`, `%`), le champ de saisie se vide pour laiser place au nombre suivant
 3 L'utilisateur clique sur `=`, le champ de saisie se vide, le résultat s'affiche
 ```
+
+## partie 3
+
+- En repartant du résultat de la partie 2 rajouter des boutons pour la saisie des chiffres, remplacez l'input de saisie par une zone d'affichage (attention aux types des propriétés du state)
+- faite en sorte que l'on puisse enchainer les calculs
