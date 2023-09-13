@@ -15,14 +15,9 @@ const CalcForm = ({state, dispatch}) => {
 
     return (
         <form>
-            <label>
-                Nombre 1 :
-                <input type={'text'} onChange={handleChange} name={'number1'} value={state.number1} />
-            </label>
-            <label>
-                Nombre 2 :
-                <input type={'text'} onChange={handleChange} name={'number2'} value={state.number2} />
-            </label>
+            <div>
+                <input type={'text'} onChange={handleChange} name={'currentNumber'} value={state.currentNumber} />
+            </div>
         </form>
     )
 }

@@ -38,7 +38,7 @@ Num1 : [2]  Num2 : [15] <--  deux champs texte pour saisir vos nombres
 ```
 Le déroulé de l'utilisation est le suivant : 
 
-1 L'utilisateur saisi un noombre
+1 L'utilisateur saisi un nombre
 2 L'utilisateur clique sur un opérateur (`+`, `-`, `x`, `%`), le champ de saisie se vide pour laiser place au nombre suivant
 3 L'utilisateur clique sur `=`, le champ de saisie se vide, le résultat s'affiche
 ```

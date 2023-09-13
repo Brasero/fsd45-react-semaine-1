@@ -1,7 +1,8 @@
 
 export const initialState = {
-    number1: '',
-    number2: '',
+    currentNumber: '',
+    prevNumber: 0,
+    lastAction: '',
     resultat: '',
     error: '',
     count: 0,
@@ -13,6 +14,7 @@ const normalize = (num) => parseFloat(num.replace(',','.'))
 const calcReducer = (state, action) => {
     let calc;
     switch(action.type) {
+
         case 'changeValue':
             return {
                 ...state,
@@ -20,46 +22,50 @@ const calcReducer = (state, action) => {
             }
 
         case 'addition':
-            calc = normalize(state.number1) + normalize(state.number2)
-            return isNaN(calc) ? {
+            return {
                 ...state,
-                error: 'Un probleme est survenue lors du calcul'
-            } : {
-                ...state,
-                number1: '',
-                number2: '',
-                resultat: calc,
+                prevNumber: parseFloat(state.currentNumber),
+                currentNumber: '',
+                lastAction: '+',
                 error: ''
             }
 
         case 'multiply':
-            calc = normalize(state.number1) * normalize(state.number2)
-            return isNaN(calc) ? {
+            return {
                 ...state,
-                error: 'Un probleme est survenue lors du calcul'
-            } : {
-                ...state,
-                number1: '',
-                number2: '',
-                resultat: calc,
+                prevNumber: parseFloat(state.currentNumber),
+                currentNumber: '',
+                lastAction: '*',
                 error: ''
             }
 
-        case 'reset':
-            return initialState;
-
-        case 'increment':
+        case 'soustract':
             return {
                 ...state,
-                count: state.count + 1,
-                message: ''
+                prevNumber: parseFloat(state.currentNumber),
+                currentNumber: '',
+                lastAction: '-',
+                error: ''
             }
 
-        case 'notify':
+        case 'divide':
             return {
                 ...state,
-                count: 0,
-                message: 'Vous avez efféctuer 10 calculs.'
+                prevNumber: parseFloat(state.currentNumber),
+                currentNumber: '',
+                lastAction: '/',
+                error: ''
+            }
+
+        case 'calculate':
+            return {
+                ...state,
+                currentNumber: '',
+                prevNumber: 0,
+                resultat: state.lastAction === '+' ? state.prevNumber + parseFloat(state.currentNumber) :
+                    state.lastAction === '*' ? state.prevNumber * parseFloat(state.currentNumber) :
+                        state.lastAction === '-' ? state.prevNumber - parseFloat(state.currentNumber) :
+                            state.prevNumber / parseFloat(state.currentNumber)
             }
 
 
