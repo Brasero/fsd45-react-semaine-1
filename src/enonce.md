@@ -28,3 +28,17 @@ Num1 : [2]  Num2 : [15] <--  deux champs texte pour saisir vos nombres
 [*] <-- Multiplier
 [Reset]
 ```
+
+## partie 2
+
+- En repartant du résultat de la partie 1 faite maintenant en sorte de n'avoir plus qu'un seul champs de saisie pour le nombre.
+- Ajouter un bouton `=`
+- Ajouter la soustraction et la division avec leur bouton réspéctif
+
+```
+Le déroulé de l'utilisation est le suivant : 
+
+1 L'utilisateur saisi un noombre
+2 L'utilisateur clique sur un opérateur (`+`, `-`, `x`, `%`), le champ de saisie se vide pour laiser place au nombre suivant
+3 L'utilisateur clique sur `=`, le champ de saisie se vide, le résultat s'affiche
+```
