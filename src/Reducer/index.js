@@ -1,72 +1,55 @@
 
 export const initialState = {
-    currentNumber: '',
+    currentNumber: 0,
     prevNumber: 0,
-    lastAction: '',
-    resultat: '',
-    error: '',
-    count: 0,
-    message: ''
+    lastAction: ''
 }
 
-const normalize = (num) => parseFloat(num.replace(',','.'))
+
+function calc(state) {
+    const current = parseFloat(state.currentNumber)
+    const prev = parseFloat(state.prevNumber)
+    const action = state.lastAction
+    return action === '' ? current :
+        action === '+' ? prev + current :
+            action === '-' ? prev - current :
+                action === 'x' ? prev * current :
+                    prev / current
+}
 
 const calcReducer = (state, action) => {
-    let calc;
     switch(action.type) {
 
         case 'changeValue':
+            const newCurrent = state.currentNumber === 0 ?
+                (action.payload === '.' ? state.currentNumber.toString() + action.payload
+                    :
+                    action.payload)
+                : state.currentNumber.toString() + action.payload.toString()
             return {
                 ...state,
-                [action.payload.name]: action.payload.value
+                currentNumber: newCurrent
             }
 
-        case 'addition':
+        case "calculate":
             return {
                 ...state,
-                prevNumber: parseFloat(state.currentNumber),
-                currentNumber: '',
-                lastAction: '+',
-                error: ''
+                currentNumber: 0,
+                prevNumber: calc(state),
+                lastAction: action.payload
             }
 
-        case 'multiply':
+        case "equal":
             return {
                 ...state,
-                prevNumber: parseFloat(state.currentNumber),
-                currentNumber: '',
-                lastAction: '*',
-                error: ''
-            }
-
-        case 'soustract':
-            return {
-                ...state,
-                prevNumber: parseFloat(state.currentNumber),
-                currentNumber: '',
-                lastAction: '-',
-                error: ''
-            }
-
-        case 'divide':
-            return {
-                ...state,
-                prevNumber: parseFloat(state.currentNumber),
-                currentNumber: '',
-                lastAction: '/',
-                error: ''
-            }
-
-        case 'calculate':
-            return {
-                ...state,
-                currentNumber: '',
+                currentNumber: calc(state),
                 prevNumber: 0,
-                resultat: state.lastAction === '+' ? state.prevNumber + parseFloat(state.currentNumber) :
-                    state.lastAction === '*' ? state.prevNumber * parseFloat(state.currentNumber) :
-                        state.lastAction === '-' ? state.prevNumber - parseFloat(state.currentNumber) :
-                            state.prevNumber / parseFloat(state.currentNumber)
+                lastAction: ''
             }
+
+        case 'reset':
+            return initialState;
+
 
 
         default:
