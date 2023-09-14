@@ -8,17 +8,6 @@ export const CalcContext = createContext({})
 
 const CalcContextProvider = ({children}) => {
 
-    const THEMES = {
-        light: {
-            background: '#fff',
-            color: "#213547"
-        },
-        dark: {
-            background: '#213547',
-            color: "#fff"
-        }
-    }
-
     const [state, dispatch] = useReducer(calcReducer, initialState)
     const handleLog = () => {
         console.log('je vient du context')
