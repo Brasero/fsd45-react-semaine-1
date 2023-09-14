@@ -11,10 +11,10 @@ const CalcContextProvider = ({children}) => {
     const THEMES = {
         light: {
             background: '#fff',
-            color: "#000"
+            color: "#213547"
         },
         dark: {
-            background: '#000',
+            background: '#213547',
             color: "#fff"
         }
     }
