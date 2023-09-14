@@ -1,5 +1,11 @@
 export const initialWeatherState = {
-    info: {}
+    info: {},
+    position: {
+        lat: null,
+        lon: null
+    },
+    basedOnLocation: false,
+    isLoading: false
 }
 
 const weatherReducer = (state, action) => {
@@ -11,7 +17,32 @@ const weatherReducer = (state, action) => {
             }
 
         case 'RESET_WEATHER':
-            return initialWeatherState
+            return {
+                ...state,
+                info: {}
+            }
+
+        case 'SET_POSITION':
+            return {
+                ...state,
+                position: {...action.payload.position},
+                basedOnLocation: action.payload.source === 'position'
+            }
+
+        case 'RESET_POSITION':
+            return {
+                ...state,
+                position: {
+                    lat: null,
+                    lon: null
+                }
+            }
+
+        case 'SET_LOADING_WEATHER':
+            return {
+                ...state,
+                isLoading: action.payload
+            }
 
         default:
             return state;

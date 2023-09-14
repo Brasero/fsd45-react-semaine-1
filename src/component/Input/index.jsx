@@ -1,9 +1,11 @@
 import {useTown} from "../../context/useTown.jsx";
 import {useState} from "react";
+import {useWeather} from "../../context/useWeather.jsx";
 
 const Input = () => {
 
     const {searchTown, town} = useTown();
+    const {setPosition} = useWeather();
     const [value, setValue] = useState('')
     const handleChange = (e) => {
         const {value} = e.target
@@ -11,10 +13,18 @@ const Input = () => {
         if (value.length > 2) searchTown(value)
     }
 
+    const handleClick = (lat, lon, name) => {
+        setPosition(lat, lon, 'api')
+        setValue(name)
+        searchTown('')
+    }
+
 
     return (
-        <form>
-            <input value={value} onChange={handleChange}/>
+        <form className={'form'} onSubmit={e => e.preventDefault()}>
+            <div className={'inputGroup'}>
+                <input value={value} onChange={handleChange}/>
+            </div>
             {
                 town.loading || town.towns.length > 0 && (
                     <div className={'propositions'}>
@@ -22,8 +32,14 @@ const Input = () => {
                             town.towns.map((t, index) => {
                                 console.log(t)
                                 const {name} = t.properties
-                                const [lat, lon] = t.geometry.coordinates
-                                return <div key={index} className={'item'}>{name}</div>
+                                const [lon, lat] = t.geometry.coordinates
+                                return <div
+                                    key={index}
+                                    className={'item'}
+                                    onClick={() => handleClick(lat, lon, name)}
+                                >
+                                    {name}
+                                </div>
                             })
                         }
                     </div>

@@ -26,7 +26,6 @@ const ProvideTownContext = () => {
         dispatch({type: 'LOADING_VILLE'})
         const params = query.replace(/ /g,'+')
         axios.get(`${TOWN_API_BASEPATH}${params}&type=municipality`).then(({data}) => {
-            console.log(data)
             dispatch({type: 'ADD_VILLE', payload: data.features})
         })
     }
