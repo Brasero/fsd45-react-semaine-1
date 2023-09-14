@@ -1,9 +1,14 @@
 import './calcButton.css'
+import {useContext} from "react";
+import {CalcContext} from "../Calculatrice/index.jsx";
 
-const CalcButtons = ({dispatch}) => {
+const CalcButtons = () => {
+
+    const {dispatch, handleLog} = useContext(CalcContext)
 
     const handleCalculate = (signe) => {
         dispatch({type: 'calculate', payload: signe})
+        handleLog()
     }
 
     return (
