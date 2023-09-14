@@ -1,11 +1,10 @@
 import './themeButton.css'
 import {BsFillMoonStarsFill, BsSunFill} from "react-icons/bs";
-import {useContext, useState} from "react";
-import {ThemeContext} from "../../context/ThemeContext.jsx";
+import {useTheme} from "../../context/useTheme.jsx";
 
 const ThemeButton = () => {
 
-    const {themeValue, changeTheme, state} = useContext(ThemeContext)
+    const {themeValue, changeTheme, state} = useTheme()
 
     const toggleState = () => {
         changeTheme()

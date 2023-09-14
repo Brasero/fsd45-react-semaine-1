@@ -1,12 +1,12 @@
 import './calcButton.css'
 import {useContext} from "react";
 import {CalcContext} from "../Calculatrice/index.jsx";
-import {ThemeContext} from "../../context/ThemeContext.jsx";
+import {UseTheme} from "../../context/useTheme.jsx";
 
 const CalcButtons = () => {
 
     const {dispatch, handleLog} = useContext(CalcContext)
-    const {themeValue} = useContext(ThemeContext)
+    const {themeValue} = useContext(UseTheme)
 
     const handleCalculate = (signe) => {
         dispatch({type: 'calculate', payload: signe})
