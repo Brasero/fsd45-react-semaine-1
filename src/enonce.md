@@ -49,4 +49,4 @@ Saisissez un nom de clé qui sérvira à identifier la clé dans l'input puis cl
 Une fois ces étapes complétée, vous pourrez envoyer des requêtes en methode GET a l'url "https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}"
 en remplaçant {lat} par la latitude de la ville, {lon} par la longitude de la ville et {API key} par votre clé d'api 
 
-> La longitude et la latitude d'une ville sont disponibles via l'api de l'état
+> La longitude et la latitude d'une ville sont disponibles via l'api de l'état avec l'url "https://api-adresse.data.gouv.fr/search/?q={nom de la ville}&type=municipality"
