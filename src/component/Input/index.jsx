@@ -1,3 +1,4 @@
+import './input.scss'
 import {useTown} from "../../context/useTown.jsx";
 import {useState} from "react";
 import {useWeather} from "../../context/useWeather.jsx";
@@ -23,7 +24,7 @@ const Input = () => {
     return (
         <form className={'form'} onSubmit={e => e.preventDefault()}>
             <div className={'inputGroup'}>
-                <input value={value} onChange={handleChange}/>
+                <input placeholder={'Saisissez votre ville.'} value={value} onChange={handleChange}/>
             </div>
             {
                 town.loading || town.towns.length > 0 && (

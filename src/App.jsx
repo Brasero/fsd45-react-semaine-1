@@ -1,15 +1,13 @@
-import './App.css'
+import './App.scss'
 import Home from "./pages/Home/index.jsx";
-import Display from "./component/Display/index.jsx";
 
 
 function App() {
 
     return (
-        <>
+        <div className={'app'}>
             <Home />
-            <Display />
-        </>
+        </div>
     )
 }
 
