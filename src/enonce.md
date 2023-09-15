@@ -1,52 +1,41 @@
-# Exercice 1
-## Gestion d'une liste de tâche 
+## Projet : Gestionnaire de dépenses personnelles
 
-### Objectif : Créez une application de liste de tâches où l'utilisateur peut ajouter, supprimer et marquer des tâches comme terminées.
+### Description du projet
+Le projet consiste à créer une application de gestion des dépenses personnelles, où les utilisateurs peuvent enregistrer leurs dépenses et obtenir une vue d'ensemble de leurs dépenses totale et par catégorie. L'application utilisera `useReducer` et `Context API` pour gérer l'état global de l'application.
 
->Utilisez useState pour gérer la liste des tâches, useReducer pour la gestion des données, et contextAPI pour partager l'état entre différents composants.
+### Fonctionnalités principales
+1. Ajout d'une dépense avec un montant et une catégorie.
+2. Affichage de la liste des dépenses enregistrées avec les détails correspondants.
+3. Calcul du total des dépenses et detail en fonction des categories.
 
-# Exercice 2
-## Gestion d'un panier d'achat
+### Exigences techniques
+- Utiliser React.js comme framework de développement.
+- Utiliser `useReducer` et `Context API` > `(optionnel)` pour gérer l'état global de l'application.
+- Utiliser des composants fonctionnels pour créer l'interface utilisateur.
+- Utiliser CSS ou un framework de votre choix pour le style et la mise en page de l'application.
 
-### Objectif : Créez une application de panier d'achats où l'utilisateur peut ajouter et supprimer des articles du panier, et voir le total des achats.
+### Points de notation
+- Ajout d'une dépense (4 points) : L'utilisateur peut ajouter une dépense avec un montant et une catégorie.
+- Affichage des dépenses (3 points) : Les dépenses enregistrées sont affichées avec leurs détails correspondants.
+- Calcul du total des dépenses et par catégorie (5 points) : Le total des dépenses mensuelles est calculé et affiché.
+>P.S. : pensez à la methode de tableau `reduce`
+- Interface utilisateur conviviale et attrayante (3 points) : L'application possède une interface utilisateur intuitive, esthétique et facile à utiliser.
 
->Utilisez useReducer pour gérer l'état du panier, useState pour gérer les articles, useEffect pour mettre à jour le total des achats, et contextAPI pour partager l'état du panier entre différents composants.
+### Liste de catégories
+1. Alimentation
+2. Logement
+3. Transport
+4. Divertissement
+5. Santé
+6. Éducation
+7. Autres
 
-# Exercice 3
-## Formuaire de contact avec validation
+>Vous trouverez dans le dossier component un component `SelectCategory` prêt à l'emploi pour vous aider, vous pouvez l'utiliser ou vous en inspirer.
+> >ATTENTION : il faudra obligatoirement l'intégrer à votre application, le component ne pourra convenir tel quel.
 
-### Objectif : Créez un formulaire de contact avec des champs tels que nom, email et message.
+### Note finale
+La note finale sur 20 sera calculée en fonction du nombre total de points obtenus sur les 15 points possibles.
 
->Utilisez useState pour gérer les valeurs des champs, useEffect pour valider les données du formulaire et afficher des messages d'erreur en temps réel. Utilisez également contextAPI pour partager les données du formulaire entre différents composants ainsi que useReducer afin de gérer les valeurs et erreur du formulaire.
+N'oubliez pas de planifier votre projet, de répartir les tâches entre les développeurs, de collaborer efficacement et de tester régulièrement votre application tout au long du processus de développement.
 
-
-# Challenge
-## Application de météo
-
-### Objectif : Créez une application de météo qui permet aux utilisateurs de rechercher la météo actuelle d'une ville donnée. 
-> Utilisez useState pour gérer les données de la ville, useEffect pour interroger une API météo en temps réel, et contextAPI pour partager les données de la météo entre les différents composants. Affichez la température, les conditions météorologiques, etc.
-
->Accès à l'api
-
-Récupérer les informations météo sur l'API [OpenWeather](https://openweathermap.org/api),
-pour vous créer une clé d'api gratuite pour pouvoir appeler l'api.
-
-![step_1](../img_support/api_key_step1.png) 
-
-Créer vous un compte si necessaire (si vous n'en avez pas) 
-
-
-![step_2](../img_support/api_key_step2.png)
-
-Une fois connécté rendez-vous dans l'onglet `API Keys`
-
-![step_3](../img_support/api_key_step3.png)
-
-Saisissez un nom de clé qui sérvira à identifier la clé dans l'input puis cliquez sur `generate` afin d'obtenir votre clé d'api
-
-![step_4](../img_support/api_key_step4.png)
-
-Une fois ces étapes complétée, vous pourrez envoyer des requêtes en methode GET a l'url "https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}"
-en remplaçant {lat} par la latitude de la ville, {lon} par la longitude de la ville et {API key} par votre clé d'api 
-
-> La longitude et la latitude d'une ville sont disponibles via l'api de l'état avec l'url "https://api-adresse.data.gouv.fr/search/?q={nom de la ville}&type=municipality"
+## Bonne chance et amusez-vous bien !
